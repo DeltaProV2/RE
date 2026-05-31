@@ -1,150 +1,98 @@
 local Players = game:GetService("Players")
-local player = Players.LocalPlayer
-local gui = Instance.new("ScreenGui")
-gui.Name = "AccessPanel"
-gui.ResetOnSpawn = false
-gui.Parent = player:WaitForChild("PlayerGui")
+
+local Player = Players.LocalPlayer
+local PlayerGui = Player:WaitForChild("PlayerGui")
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = PlayerGui
 
 local Main = Instance.new("Frame")
-Main.Size = UDim2.fromScale(.45,.75)
-Main.Position = UDim2.fromScale(.5,.5)
-Main.AnchorPoint = Vector2.new(.5,.5)
-Main.BackgroundColor3 = Color3.fromRGB(10,10,10)
-Main.Parent = gui
+Main.Size = UDim2.fromOffset(650, 500)
+Main.Position = UDim2.fromScale(0.5, 0.5)
+Main.AnchorPoint = Vector2.new(0.5, 0.5)
+Main.BackgroundColor3 = Color3.fromRGB(8, 8, 8)
+Main.BorderSizePixel = 0
+Main.Parent = ScreenGui
 
-Instance.new("UICorner", Main).CornerRadius = UDim.new(0,15)
+local Corner = Instance.new("UICorner")
+Corner.CornerRadius = UDim.new(0, 20)
+Corner.Parent = Main
 
-local Scroll = Instance.new("ScrollingFrame")
-Scroll.Size = UDim2.fromScale(1,1)
-Scroll.BackgroundTransparency = 1
-Scroll.BorderSizePixel = 0
-Scroll.ScrollBarThickness = 8
-Scroll.Parent = Main
+-- Top Blue Line
+local TopLine = Instance.new("Frame")
+TopLine.Size = UDim2.new(1, 0, 0, 6)
+TopLine.BackgroundColor3 = Color3.fromRGB(0, 170, 255)
+TopLine.BorderSizePixel = 0
+TopLine.Parent = Main
 
-local Layout = Instance.new("UIListLayout")
-Layout.Padding = UDim.new(0,15)
-Layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
-Layout.Parent = Scroll
-
---------------------------------------------------
--- ACCESS PANEL
---------------------------------------------------
-
-local AccessPanel = Instance.new("Frame")
-AccessPanel.Size = UDim2.new(1,-20,0,350)
-AccessPanel.BackgroundColor3 = Color3.fromRGB(15,15,15)
-AccessPanel.Parent = Scroll
-
-Instance.new("UICorner", AccessPanel).CornerRadius = UDim.new(0,15)
-
+-- Title
 local Title = Instance.new("TextLabel")
-Title.Size = UDim2.new(1,0,0,60)
+Title.Size = UDim2.new(1, 0, 0, 70)
+Title.Position = UDim2.new(0, 0, 0, 10)
 Title.BackgroundTransparency = 1
 Title.Text = "ACCESS PANEL"
-Title.TextScaled = true
 Title.TextColor3 = Color3.new(1,1,1)
 Title.Font = Enum.Font.GothamBold
-Title.Parent = AccessPanel
+Title.TextScaled = true
+Title.Parent = Main
 
-local Info = Instance.new("TextLabel")
-Info.Position = UDim2.new(0,20,0,80)
-Info.Size = UDim2.new(1,-40,0,120)
-Info.BackgroundTransparency = 1
-Info.TextXAlignment = Enum.TextXAlignment.Left
-Info.TextYAlignment = Enum.TextYAlignment.Top
-Info.TextWrapped = true
-Info.TextColor3 = Color3.fromRGB(220,220,220)
-Info.Font = Enum.Font.Gotham
-Info.Text =
-"1. Click JOIN GROUP\n"..
-"2. Link will be copied\n"..
-"3. Paste link in browser\n"..
-"4. Join group and enjoy"
-Info.Parent = AccessPanel
+-- Link Text
+local LinkText = Instance.new("TextLabel")
+LinkText.Size = UDim2.new(1, -40, 0, 40)
+LinkText.Position = UDim2.new(0, 20, 0, 100)
+LinkText.BackgroundTransparency = 1
+LinkText.Text = "Link copied! Paste in browser 🔗"
+LinkText.TextColor3 = Color3.fromRGB(180,180,180)
+LinkText.Font = Enum.Font.Gotham
+LinkText.TextScaled = true
+LinkText.Parent = Main
 
-local Join = Instance.new("TextButton")
-Join.Size = UDim2.new(.7,0,0,60)
-Join.Position = UDim2.new(.15,0,.72,0)
-Join.BackgroundColor3 = Color3.fromRGB(0,140,255)
-Join.Text = "JOIN GROUP"
-Join.TextScaled = true
-Join.Font = Enum.Font.GothamBold
-Join.TextColor3 = Color3.new(1,1,1)
-Join.Parent = AccessPanel
+-- Instructions
+local Instructions = Instance.new("TextLabel")
+Instructions.Size = UDim2.new(1, -80, 0, 150)
+Instructions.Position = UDim2.new(0, 40, 0, 170)
+Instructions.BackgroundTransparency = 1
+Instructions.TextXAlignment = Enum.TextXAlignment.Left
+Instructions.TextYAlignment = Enum.TextYAlignment.Top
+Instructions.Font = Enum.Font.Gotham
+Instructions.TextColor3 = Color3.fromRGB(220,220,220)
+Instructions.TextSize = 28
+Instructions.Text =
+[[1. Click JOIN GROUP
+2. Link will be copied to your clipboard
+3. Paste link in Chrome
+4. Join group and enjoy your script]]
+Instructions.Parent = Main
 
-Instance.new("UICorner", Join).CornerRadius = UDim.new(1,0)
+-- Join Button
+local JoinButton = Instance.new("TextButton")
+JoinButton.Size = UDim2.fromOffset(420, 70)
+JoinButton.Position = UDim2.new(0.5, -210, 0, 320)
+JoinButton.BackgroundColor3 = Color3.fromRGB(0, 150, 255)
+JoinButton.Text = "JOIN GROUP"
+JoinButton.TextColor3 = Color3.new(1,1,1)
+JoinButton.Font = Enum.Font.GothamBold
+JoinButton.TextScaled = true
+JoinButton.Parent = Main
 
---------------------------------------------------
--- SEARCH BAR
---------------------------------------------------
+local ButtonCorner = Instance.new("UICorner")
+ButtonCorner.CornerRadius = UDim.new(1, 0)
+ButtonCorner.Parent = JoinButton
 
-local SearchFrame = Instance.new("Frame")
-SearchFrame.Size = UDim2.new(1,-20,0,50)
-SearchFrame.BackgroundTransparency = 1
-SearchFrame.Parent = Scroll
+-- Footer
+local Footer = Instance.new("TextLabel")
+Footer.Size = UDim2.new(1, -40, 0, 30)
+Footer.Position = UDim2.new(0, 20, 1, -45)
+Footer.BackgroundTransparency = 1
+Footer.Text = "Add your Discord here if you have any issues"
+Footer.TextColor3 = Color3.fromRGB(100,100,100)
+Footer.Font = Enum.Font.Gotham
+Footer.TextScaled = true
+Footer.Parent = Main
 
-local SearchBox = Instance.new("TextBox")
-SearchBox.Size = UDim2.new(1,0,1,0)
-SearchBox.PlaceholderText = "Search..."
-SearchBox.Text = ""
-SearchBox.Parent = SearchFrame
-
-Instance.new("UICorner", SearchBox).CornerRadius = UDim.new(1,0)
-
---------------------------------------------------
--- GAME GRID
---------------------------------------------------
-
-local GamesContainer = Instance.new("Frame")
-GamesContainer.Size = UDim2.new(1,-20,0,600)
-GamesContainer.BackgroundTransparency = 1
-GamesContainer.Parent = Scroll
-
-local Grid = Instance.new("UIGridLayout")
-Grid.CellSize = UDim2.new(0,220,0,150)
-Grid.CellPadding = UDim2.new(0,15,0,15)
-Grid.Parent = GamesContainer
-
-local Games = {
-	{Name="Adopt Me", Image="rbxassetid://0"},
-	{Name="Blox Fruits", Image="rbxassetid://0"},
-	{Name="MM2", Image="rbxassetid://0"},
-	{Name="Doors", Image="rbxassetid://0"},
-}
-
-for _,data in ipairs(Games) do
-	local Card = Instance.new("Frame")
-	Card.BackgroundTransparency = 1
-	Card.Parent = GamesContainer
-
-	local Thumb = Instance.new("ImageLabel")
-	Thumb.Size = UDim2.new(1,0,.8,0)
-	Thumb.BackgroundTransparency = 1
-	Thumb.Image = data.Image
-	Thumb.Parent = Card
-
-	local Link = Instance.new("TextButton")
-	Link.Size = UDim2.new(0,100,0,35)
-	Link.Position = UDim2.new(.5,-50,.82,0)
-	Link.Text = "🔗"
-	Link.Parent = Card
-
-	Instance.new("UICorner", Link).CornerRadius = UDim.new(1,0)
-end
-
---------------------------------------------------
--- AUTO CANVAS
---------------------------------------------------
-
-local function UpdateCanvas()
-	task.wait()
-	Scroll.CanvasSize = UDim2.new(
-		0,
-		0,
-		0,
-		Layout.AbsoluteContentSize.Y + 20
-	)
-end
-
-Layout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(UpdateCanvas)
-UpdateCanvas()
+-- Button Function
+JoinButton.MouseButton1Click:Connect(function()
+	setclipboard("https://your-group-link-here")
+	LinkText.Text = "Link copied! Paste in browser 🔗"
+end)
